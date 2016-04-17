@@ -1,7 +1,11 @@
 #include <stdio.h>
-#include <time.h>
 #include <stdlib.h>
-#include
+#include <math.h>
+#include <time.h>
+#include <inttypes.h>
+#include "partition.h"
+#include <time.h>
+
 
 void read_file(uint64_t array[], FILE* fp, int n){
     uint64_t bytes_read;
@@ -25,7 +29,6 @@ int main(){//int argc, char *argv[]){
     for(int i=0; i<10; i++) {
         printf("%i\n", array[i]);
     }
-    //unsigned long long 
 }
 
 
