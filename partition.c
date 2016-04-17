@@ -1,5 +1,6 @@
 #include <stdio.h>
 #include <stdlib.h>
+#include <stdint.h>
 #include <math.h>
 #include <time.h>
 #include <inttypes.h>
@@ -7,7 +8,7 @@
 #include <time.h>
 
 
-void read_file(int array[], FILE* fp, int n){
+void read_file(uint64_t array[], FILE* fp, int n){
     int bytes_read;
     size_t nbytes = 32;
     char *line;
@@ -24,11 +25,24 @@ void read_file(int array[], FILE* fp, int n){
 
 int main(){//int argc, char *argv[]){
     FILE *fp = fopen("numbers.txt", "r");
-    int array[100];
-    read_file(array, fp, 100);
-    for(int i=0; i<10; i++) {
-        printf("%i\n", array[i]);
+    uint64_t ints_array[100];
+    read_file(ints_array, fp, 100);
+    for(int i=0; i<100; i++) {
+        printf("%llu\n", ints_array[i]);
     }
+
+    // Make random numbers in text file 64 bit unsigned ints
+    // uint64_t t;
 }
+
+
+//GET MAX
+
+//
+
+// int karmakar_karp(uint){
+
+
+// }
 
 
