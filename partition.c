@@ -23,12 +23,29 @@ void read_file(uint64_t array[], FILE* fp, int n){
 
 
 int main(){//int argc, char *argv[]){
+    time_t t;
+    srand((unsigned) time(&t));
+    /*for (int i=0; i< 10; i++) {
+        printf("%d\n", rand() % 50);
+    }*/
+    
     FILE *fp = fopen("numbers.txt", "r");
     uint64_t array[100];
     read_file(array, fp, 100);
-    for(int i=0; i<10; i++) {
-        printf("%i\n", array[i]);
+   
+    uint64_t num;
+    
+    for (int i=0; i< 10; i++) {
+        num = (num << 32) | rand();
+        //num = num % 18446744073709551615;
+        //num = num % 9223372036854775807;
+        printf("%llu\n", num);
     }
+   
+    /*for(int i=0; i<25; i++) {
+        printf("%ld\n", array[i]);
+    }*/
+
 }
 
 
