@@ -7,4 +7,5 @@
 #include <time.h>
 
 void read_file(uint64_t array[], FILE* fp, int n);
-int karmakar_karp(uint64_t ints_array[], int karmakar_karp_iter);
+uint64_t karmakar_karp(uint64_t ints_array[], int n_of_ints);
+

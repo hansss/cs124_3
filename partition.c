@@ -47,6 +47,12 @@ uint64_t karmakar_karp(uint64_t array[], int n){
         array[index1] = max - max2;
     
     }
+    
+    printf("max1: %llu\n", max);
+    printf("max2: %llu\n", max2);
+    printf("index1: %i\n", index1);
+    printf("index2: %i\n", index2);
+    return max - max2;
 }
 
 
@@ -61,8 +67,11 @@ int main(){//int argc, char *argv[]){
     uint64_t num;
 
     read_file(ints_array, fp, n);
-
-    karmakar_karp(ints_array, n);
+    uint64_t array[5] = {10,8,7,6,5};
+    n = 5;
+    uint64_t k = karmakar_karp(array, n);
+    printf("Hi: %llu", k);
+    return 0;
 
 }
 
