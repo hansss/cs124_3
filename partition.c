@@ -22,7 +22,51 @@ void read_file(uint64_t array[], FILE* fp, int n){
         printf("%" PRIu64 "\n", array[i]); 
         i++;                 
     }
+    
 }
+
+uint64_t random_residue(uint64_t array[], int n){
+    int* soln = (int*) malloc(sizeof(int)*n);
+    uint64_t set_A = 0;
+    uint64_t set_B = 0;
+    uint64_t residue;
+
+    for (int i = 0; i < n; i++){
+        soln[i] = (rand() % 2);
+    }
+
+    for (int i = 0; i < n; i++){
+        if (soln[i] == 0){
+            set_A += array[i];
+        }
+        else{
+            set_B += array[i];
+        }
+    }
+
+    residue = abs(set_A - set_B);
+    return residue;
+}
+
+uint64_t repeated_random(uint64_t array[], int n,  int iterations){
+    printf("1array[1]: %llu\n", array[1]);
+    uint64_t res_keep = random_residue(array, n);
+    printf("2array[1]: %llu\n", array[1]);
+    uint64_t res_try;
+    int first = -1;
+
+
+    for (int i = 1; i < iterations; i++){
+        res_try = random_residue(array, n);
+        if (res_try < res_keep){
+            res_keep = res_try;
+        }
+    }
+    return res_keep;
+}
+
+
+
 
 uint64_t karmakar_karp(uint64_t array2[], int n){
     uint64_t max = 0;
@@ -32,7 +76,7 @@ uint64_t karmakar_karp(uint64_t array2[], int n){
     uint64_t array[n];
     for (int i = 0; i < n; i++){
         array[i] = array2[i];
-    }                            
+    }    
     for (int j = 0; j < n; j++){
         max = 0;
         max2 = 0;
@@ -49,12 +93,9 @@ uint64_t karmakar_karp(uint64_t array2[], int n){
                 index2 = i;
             }
         }
+
         array[index2] = 0;
         array[index1] = max - max2;
-        /*for (int i = 0; i < n; i++){
-             printf("%llu  ", array[i]);            
-        }
-        printf("\n"); */
     }
     return max - max2;
 }
@@ -129,12 +170,19 @@ int main(){//int argc, char *argv[]){
     /*
     FILE *fp = fopen("numbers.txt", "r");
 
-    int n = 100;
-    uint64_t array[n];
+    // int n = 100;
+    // uint64_t array[n];
     uint64_t num;
+    // read_file(array, fp, n);
 
-    read_file(array, fp, n);
+    uint64_t array[9] = {1,4,5,2,10,18,9,7,2};
+    int n = 9;
     */
+    
+    // Below is merge conflict code 
+    
+    /*read_file(array, fp, n);
+    
     //printf("%llu\n", array[0]);   
     //printf("%llu\n", array[1]);
     //uint64_t array[2] = {7189431831007297, 105449836377296722};
@@ -144,14 +192,23 @@ int main(){//int argc, char *argv[]){
     for (int i = 0; i < n; i++){
         array[i] = rand() % n;
     }
-    /*for (int i = 0; i < n; i++){
+    for (int i = 0; i < n; i++){
         printf("%i  ", array[i]);
-    }*/
+    }
     printf("\n");
     //uint64_t k = partition(data_array,array, n);
     //uint64_t k = karmakar_karp(data_array, n);
-    uint64_t k = rand_partition(data_array, n, 25000);
-    printf("Hi: %llu\n", k);
+    uint64_t k = rand_partition(data_array, n, 25000);*/
+
+    uint64_t check = repeated_random(array, n, 2500);
+    printf("CHECK %llu\n", check);
+
+    // uint64_t random_test = random_residue(array, n);
+    
+
+    //uint64_t k = karmakar_karp(array, n);
+    //printf("Hi: %llu\n", k);
+
     return 0;
 
 }
