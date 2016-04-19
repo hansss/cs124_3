@@ -25,11 +25,13 @@ void read_file(uint64_t array[], FILE* fp, int n){
 
 
 uint64_t karmakar_karp(uint64_t array[], int n){
-    uint64_t max = array[1];
-    uint64_t max2 = array[1];
+    uint64_t max = 0;
+    uint64_t max2 = 0;
     int index1 = 0;
     int index2 = 0; 
     for (int j = 0; j < n; j++){
+        max = 0;
+        max2 = 0;
         for (int i = 0; i < n; i++){
             if (max < array[i]){
                 max = array[i];
@@ -45,6 +47,7 @@ uint64_t karmakar_karp(uint64_t array[], int n){
         }
         array[index2] = 0;
         array[index1] = max - max2;
+
     
     }
     
@@ -67,8 +70,8 @@ int main(){//int argc, char *argv[]){
     uint64_t num;
 
     read_file(ints_array, fp, n);
-    uint64_t array[5] = {10,8,7,6,5};
-    n = 5;
+    uint64_t array[9] = {1,4,5,2,10,18,9,7,2};
+    n = 9;
     uint64_t k = karmakar_karp(array, n);
     printf("Hi: %llu", k);
     return 0;
