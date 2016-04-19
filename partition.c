@@ -31,12 +31,18 @@ uint64_t karmakar_karp(uint64_t ints_array[], int n_of_ints){
 
 
 int main(){//int argc, char *argv[]){
+    time_t t;
+    srand((unsigned) time(&t));
+    
     FILE *fp = fopen("numbers.txt", "r");
 
     int n = 100;
     uint64_t ints_array[n];
+    uint64_t num;
+
     read_file(ints_array, fp, n);
     for(int i=0; i<n; i++) {
+        num = (num << 32) | rand();
         printf("%llu\n", ints_array[i]);
     }
 
@@ -44,8 +50,6 @@ int main(){//int argc, char *argv[]){
 
 
 
-    // Make random numbers in text file 64 bit unsigned ints
-    // uint64_t t;
 }
 
 
