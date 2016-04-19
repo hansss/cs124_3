@@ -25,10 +25,11 @@ void read_file(uint64_t array[], FILE* fp, int n){
 
 
 uint64_t karmakar_karp(uint64_t array[], int n){
-    uint64_t max = array[1];
-    uint64_t max2 = array[1];
-    int index1 = 0;
-    int index2 = 0; 
+    uint64_t max;
+    uint64_t max2;
+    int index1 = -1;
+    int index2 = -1; 
+
     for (int j = 0; j < n; j++){
         for (int i = 0; i < n; i++){
             if (max < array[i]){
