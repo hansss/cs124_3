@@ -41,10 +41,6 @@ int main(){//int argc, char *argv[]){
     uint64_t num;
 
     read_file(ints_array, fp, n);
-    for(int i=0; i<n; i++) {
-        num = (num << 32) | rand();
-        printf("%llu\n", ints_array[i]);
-    }
 
     karmakar_karp(ints_array, n);
 
@@ -52,10 +48,6 @@ int main(){//int argc, char *argv[]){
 
 }
 
-
-//GET MAX
-
-//
 
 
 
