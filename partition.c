@@ -35,7 +35,7 @@ int main(){//int argc, char *argv[]){
    
     uint64_t num;
     
-    for (int i=0; i< 10; i++) {
+    for (int i=0; i< 100; i++) {
         num = (num << 32) | rand();
         //num = num % 18446744073709551615;
         //num = num % 9223372036854775807;
