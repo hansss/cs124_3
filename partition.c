@@ -33,24 +33,37 @@ uint64_t random_residue(uint64_t array[], int n){
 
     for (int i = 0; i < n; i++){
         soln[i] = (rand() % 2);
-        printf("soln[i]: %llu\n", soln[i]);
     }
 
     for (int i = 0; i < n; i++){
         if (soln[i] == 0){
             set_A += array[i];
-            printf("array[i]: %llu\n", array[i]);
-            printf("set_A: %llu\n", set_A);
         }
         else{
             set_B += array[i];
-            printf("set_B: %llu\n", set_B);
         }
     }
 
     residue = abs(set_A - set_B);
-    printf("Random Residue In: %llu\n", residue);
     return residue;
+}
+
+uint64_t repeated_random(uint64_t array[], int n,  int iterations){
+    printf("1array[1]: %llu\n", array[1]);
+    uint64_t res_keep = random_residue(array, n);
+    printf("2array[1]: %llu\n", array[1]);
+    uint64_t res_try;
+    int first = -1;
+
+
+    for (int i = 1; i < iterations; i++){
+        res_try = random_residue(array, n);
+        x
+        if (res_try < res_keep){
+            res_keep = res_try;
+        }
+    }
+    return res_keep;
 }
 
 
@@ -94,31 +107,23 @@ int main(){//int argc, char *argv[]){
     
     FILE *fp = fopen("numbers.txt", "r");
 
-    int n = 100;
-    uint64_t array[n];
+    // int n = 100;
+    // uint64_t array[n];
     uint64_t num;
+    // read_file(array, fp, n);
 
-<<<<<<< HEAD
-    read_file(ints_array, fp, n);
     uint64_t array[9] = {1,4,5,2,10,18,9,7,2};
-    n = 9;
+    int n = 9;
 
+    uint64_t check = repeated_random(array, n, 2500);
+    printf("CHECK %llu\n", check);
 
-
-    uint64_t random_test = random_residue(array, n);
-    printf("Random Residue Out: %llu\n", random_test);
-    // uint64_t k = karmakar_karp(array, n);
-    // printf("Hi: %llu \n", k);
+    // uint64_t random_test = random_residue(array, n);
     
-=======
-    read_file(array, fp, n);
-    
-    //printf("%llu\n", array[0]);   
-    //printf("%llu\n", array[1]);
-    //uint64_t array[2] = {7189431831007297, 105449836377296722};
+
     uint64_t k = karmakar_karp(array, n);
     printf("Hi: %llu\n", k);
->>>>>>> 35815b7c3d16980b2b2d2308b7f0340b66708ecc
+
     return 0;
 
 }
