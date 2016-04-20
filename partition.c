@@ -19,7 +19,7 @@ void read_file(uint64_t array[], FILE* fp, int n){
  
     while ((read = getline(&line, &len, fp)) != -1 && i < n) {
         array[i] = atoll(line);
-        printf("%" PRIu64 "\n", array[i]); 
+        //printf("%" PRIu64 "\n", array[i]); 
         i++;                 
     }
     
@@ -124,11 +124,12 @@ uint64_t partition(uint64_t array2[], int int_array[], int n){
         }
         array[i] = sum;
     }  
-    for (int i = 0; i < n; i++){
+   /* for (int i = 0; i < n; i++){
         printf("%llu  ", array[i]);            
     }
-    printf("\n"); 
+    printf("\n"); */     
     residue = karmakar_karp(array, n);
+      //  printf("Residue: %" PRIu64 "\n", residue); 
     return residue;
 }
 
@@ -137,9 +138,9 @@ uint64_t rand_partition(uint64_t array[], int n, int max_iter){
     srand((unsigned) time(&t));
     int rand_array[n];
     int rand_array2[n];
-    int residue = 0;
-    int x;
-    int y;
+    uint64_t residue = 0;
+    uint64_t x;
+    uint64_t y;
     for (int i = 0; i < n; i++){
         rand_array[i] = rand() % n;
     }
@@ -148,7 +149,9 @@ uint64_t rand_partition(uint64_t array[], int n, int max_iter){
             rand_array2[i] = rand() % n;
         }
         x = partition(array, rand_array, n);
+                //printf("x: %" PRIu64 "\n", x); 
         y = partition(array, rand_array2, n);
+                //printf("y: %" PRIu64 "\n", y); 
         if (y < x){
             memcpy(rand_array, rand_array2, sizeof(rand_array));
             residue = y;
@@ -156,25 +159,61 @@ uint64_t rand_partition(uint64_t array[], int n, int max_iter){
         else {
             residue = x;
         }
-        printf("residue: %i\n", residue);
-        printf("x: %i, y: %i\n", x, y);
+        //printf("residue: %" PRIu64 "\n", residue); 
+        //printf("residue: %i\n", residue);
+        //printf("x: %i, y: %i\n", x, y);
+    }
+    return residue;
+}
+
+uint64_t hill_climbing(uint64_t array[], int n, int max_iter){
+    time_t t;
+    srand((unsigned) time(&t));
+    int rand_array[n];
+    int rand_array2[n];
+    uint64_t residue = 0;
+    uint64_t x;
+    uint64_t y;
+    for (int i = 0; i < n; i++){
+        rand_array[i] = rand() % n;
+    }
+    for (int iter = 0; iter < max_iter; iter++){
+        for (int i = 0; i < n; i++){
+            rand_array2[i] = rand() % n;
+        }
+        x = partition(array, rand_array, n);
+                //printf("x: %" PRIu64 "\n", x); 
+        y = partition(array, rand_array2, n);
+                //printf("y: %" PRIu64 "\n", y); 
+        if (y < x){
+            memcpy(rand_array, rand_array2, sizeof(rand_array));
+            residue = y;
+        }
+        else {
+            residue = x;
+        }
+        //printf("residue: %" PRIu64 "\n", residue); 
+        //printf("residue: %i\n", residue);
+        //printf("x: %i, y: %i\n", x, y);
     }
     return residue;
 }
 
 
+
+
 int main(){//int argc, char *argv[]){
     time_t t;
     srand((unsigned) time(&t));
-    int n = 5;
-    /*
+    int n = 100;
+    
     FILE *fp = fopen("numbers.txt", "r");
 
-    // int n = 100;
-    // uint64_t array[n];
+     //int n = 100;
+    uint64_t array[n];
     uint64_t num;
-    // read_file(array, fp, n);
-
+    read_file(array, fp, n);
+/*
     uint64_t array[9] = {1,4,5,2,10,18,9,7,2};
     int n = 9;
     */
@@ -199,15 +238,16 @@ int main(){//int argc, char *argv[]){
     //uint64_t k = partition(data_array,array, n);
     //uint64_t k = karmakar_karp(data_array, n);
     uint64_t k = rand_partition(data_array, n, 25000);*/
-
-    uint64_t check = repeated_random(array, n, 2500);
-    printf("CHECK %llu\n", check);
-
-    // uint64_t random_test = random_residue(array, n);
     
+    //uint64_t data_array[100] = {4,5,2,10,18,9,7,2,9,1,4,5,2,10,18,9,7,2,9,1,4,5,2,10,18,9,7,2,9,1,4,5,2,10,18,9,7,2,9,1,4,5,2,10,18,9,7,2,9,1,4,5,2,10,18,9,7,2,9,1,4,5,2,10,18,9,7,2,9,1,4,5,2,10,18,9,7,2,9,1,4,5,2,10,18,9,7,2,9,1,4,5,2,10,18,9,7,2,9,1};
+    //uint64_t check = repeated_random(array, n, 25000);
+    //printf("CHECK %llu\n", check);
 
+    //uint64_t random_test = random_residue(array, n);
+    //uint64_t data_array[5] = {3,4,5,5,1};
+    uint64_t k = rand_partition(array, n, 25000);
     //uint64_t k = karmakar_karp(array, n);
-    //printf("Hi: %llu\n", k);
+    printf("Hi: %llu\n", k);
 
     return 0;
 
