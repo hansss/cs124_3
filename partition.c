@@ -1,3 +1,4 @@
+#define _GNU_SOURCE
 #include <stdio.h>
 #include <stdlib.h>
 #include <stdint.h>
@@ -10,16 +11,18 @@
 
 void read_file(uint64_t array[], FILE* fp, int n){
     uint64_t bytes_read;
-    size_t nbytes = 64;
-    uint64_t *line;
+    size_t nbytes = 1000;
+    uint64_t *line = NULL;
+    size_t len = 0;
+    ssize_t read;
+    int i = 0;
  
-    line = (uint64_t *) malloc(nbytes);
-
-    for(int i=0; i<n; i++) {
-        bytes_read = getline(&line, &nbytes, fp);
-        array[i] = atoi(line);
+    while ((read = getline(&line, &len, fp)) != -1 && i < n) {
+        array[i] = atoll(line);
+        printf("%" PRIu64 "\n", array[i]); 
+        i++;                 
     }
-
+    
 }
 
 uint64_t random_residue(uint64_t array[], int n){
@@ -57,8 +60,8 @@ uint64_t karmakar_karp(uint64_t array[], int n){
 
     uint64_t max = 0;
     uint64_t max2 = 0;
-    int index1 = -1;
-    int index2 = -1; 
+    int index1 = 0;
+    int index2 = 0;                              
 
     for (int j = 0; j < n; j++){
         max = 0;
@@ -76,22 +79,11 @@ uint64_t karmakar_karp(uint64_t array[], int n){
                 index2 = i;
             }
         }
-        if (array[index1] > array[index2]){
-            array[index2] = 0;
-            array[index1] = max - max2;
-        }
-        else{
-            array[index2] = max - max2;
-            array[index1] = 0;  
-        }
 
-    
+        array[index2] = 0;
+        array[index1] = max - max2;
     }
     
-    printf("max1: %llu\n", max);
-    printf("max2: %llu\n", max2);
-    printf("index1: %i\n", index1);
-    printf("index2: %i\n", index2);
     return max - max2;
 }
 
@@ -103,9 +95,10 @@ int main(){//int argc, char *argv[]){
     FILE *fp = fopen("numbers.txt", "r");
 
     int n = 100;
-    uint64_t ints_array[n];
+    uint64_t array[n];
     uint64_t num;
 
+<<<<<<< HEAD
     read_file(ints_array, fp, n);
     uint64_t array[9] = {1,4,5,2,10,18,9,7,2};
     n = 9;
@@ -117,6 +110,15 @@ int main(){//int argc, char *argv[]){
     // uint64_t k = karmakar_karp(array, n);
     // printf("Hi: %llu \n", k);
     
+=======
+    read_file(array, fp, n);
+    
+    //printf("%llu\n", array[0]);   
+    //printf("%llu\n", array[1]);
+    //uint64_t array[2] = {7189431831007297, 105449836377296722};
+    uint64_t k = karmakar_karp(array, n);
+    printf("Hi: %llu\n", k);
+>>>>>>> 35815b7c3d16980b2b2d2308b7f0340b66708ecc
     return 0;
 
 }
