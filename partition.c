@@ -7,6 +7,7 @@
 #include <inttypes.h>
 #include "partition.h"
 #include <time.h>
+// mercen twister, seed implementation
 
 
 void read_file(uint64_t array[], FILE* fp, int n){
@@ -127,7 +128,7 @@ uint64_t partition(uint64_t array2[], int int_array[], int n){
    /* for (int i = 0; i < n; i++){
         printf("%llu  ", array[i]);            
     }
-    printf("\n"); */     
+    printf("\n"); */    
     residue = karmakar_karp(array, n);
       //  printf("Residue: %" PRIu64 "\n", residue); 
     return residue;
@@ -149,9 +150,9 @@ uint64_t rand_partition(uint64_t array[], int n, int max_iter){
             rand_array2[i] = rand() % n;
         }
         x = partition(array, rand_array, n);
-                //printf("x: %" PRIu64 "\n", x); 
+           printf("x: %" PRIu64 "\n", x); 
         y = partition(array, rand_array2, n);
-                //printf("y: %" PRIu64 "\n", y); 
+               printf("y: %" PRIu64 "\n", y); 
         if (y < x){
             memcpy(rand_array, rand_array2, sizeof(rand_array));
             residue = y;
@@ -159,9 +160,7 @@ uint64_t rand_partition(uint64_t array[], int n, int max_iter){
         else {
             residue = x;
         }
-        //printf("residue: %" PRIu64 "\n", residue); 
-        //printf("residue: %i\n", residue);
-        //printf("x: %i, y: %i\n", x, y);
+        printf("residue: %" PRIu64 "\n", residue); 
     }
     return residue;
 }
@@ -174,13 +173,53 @@ uint64_t hill_climbing(uint64_t array[], int n, int max_iter){
     uint64_t residue = 0;
     uint64_t x;
     uint64_t y;
+    int rand_change = 0;
     for (int i = 0; i < n; i++){
         rand_array[i] = rand() % n;
     }
     for (int iter = 0; iter < max_iter; iter++){
         for (int i = 0; i < n; i++){
-            rand_array2[i] = rand() % n;
+            rand_array2[i] = rand_array[i];
         }
+        rand_change = rand() % n;
+        rand_array2[rand_change] = rand () % n;
+        x = partition(array, rand_array, n);
+                printf("x: %" PRIu64 "\n", x); 
+        y = partition(array, rand_array2, n);
+                printf("y: %" PRIu64 "\n", y); 
+        if (y < x){
+            memcpy(rand_array, rand_array2, sizeof(rand_array));
+            residue = y;
+        }
+        else {
+            residue = x;
+        }
+        printf("residue: %" PRIu64 "\n", residue); 
+        //printf("residue: %i\n", residue);
+        //printf("x: %i, y: %i\n", x, y);
+    }
+    return residue;
+}
+
+
+uint64_t sim_a(uint64_t array[], int n, int max_iter){
+    time_t t;
+    srand((unsigned) time(&t));
+    int rand_array[n];
+    int rand_array2[n];
+    uint64_t residue = 0;
+    uint64_t x;
+    uint64_t y;
+    int rand_change = 0;
+    for (int i = 0; i < n; i++){
+        rand_array[i] = rand() % n;
+    }
+    for (int iter = 0; iter < max_iter; iter++){
+        for (int i = 0; i < n; i++){
+            rand_array2[i] = rand_array[i];
+        }
+        rand_change = rand() % n;
+        rand_array2[rand_change] = rand () % n;
         x = partition(array, rand_array, n);
                 //printf("x: %" PRIu64 "\n", x); 
         y = partition(array, rand_array2, n);
@@ -198,7 +237,6 @@ uint64_t hill_climbing(uint64_t array[], int n, int max_iter){
     }
     return residue;
 }
-
 
 
 
@@ -246,6 +284,7 @@ int main(){//int argc, char *argv[]){
     //uint64_t random_test = random_residue(array, n);
     //uint64_t data_array[5] = {3,4,5,5,1};
     uint64_t k = rand_partition(array, n, 25000);
+    //uint64_t k = hill_climbing(array, n, 25000);
     //uint64_t k = karmakar_karp(array, n);
     printf("Hi: %llu\n", k);
 
