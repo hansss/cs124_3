@@ -517,7 +517,7 @@ uint64_t sim_a(uint64_t array[], int n, int max_iter){
 
 int main(){//int argc, char *argv[]){
     
-    FILE *fp = fopen("numbers.txt", "r");
+    FILE *fp = fopen("numbers3.txt", "r");
 
     int n = 100;
     uint64_t array[n];
