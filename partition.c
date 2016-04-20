@@ -539,7 +539,6 @@ int main(){//int argc, char *argv[]){
 
 
 
-// <<<<<<< HEAD
 //     // //uint64_t random_test = random_residue(array, n);
 //     // //uint64_t data_array[5] = {3,4,5,5,1};
 //     // uint64_t k = rand_partition(array, n, 25000);
@@ -548,7 +547,6 @@ int main(){//int argc, char *argv[]){
 //     // printf("Hi: %llu\n", k);
 
 
-// =======
     //uint64_t random_test = random_residue(array, n);
     //uint64_t data_array[5] = {3,4,5,5,1};
     clock_t t = clock();
