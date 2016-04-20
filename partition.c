@@ -27,7 +27,7 @@ void read_file(uint64_t array[], FILE* fp, int n){
 }
 
 uint64_t random_residue(uint64_t array[], int n){
-    int* soln = (int*) malloc(sizeof(int)*n);
+    int soln[n];
     uint64_t set_A = 0;
     uint64_t set_B = 0;
     uint64_t residue;
@@ -39,13 +39,22 @@ uint64_t random_residue(uint64_t array[], int n){
     for (int i = 0; i < n; i++){
         if (soln[i] == 0){
             set_A += array[i];
+            if (set_A < array[i]){
+                printf("Overflow!\n");
+            }
         }
         else{
             set_B += array[i];
+            if (set_B < array[i]){
+                printf("Overflow!\n");
+            }
         }
     }
+    printf("setA: %llu\n", set_A);
+    printf("setB: %llu\n", set_B);
 
     residue = abs(set_A - set_B);
+    printf("Residue: %llu\n", residue);
     return residue;
 }
 
@@ -217,21 +226,24 @@ uint64_t random_residue_provide_soln(uint64_t array[], uint64_t soln[], int n){
 
 
 uint64_t repeated_random(uint64_t array[], int n,  int iterations){
+
     //printf("1array[1]: %llu\n", array[1]);
     uint64_t res_keep = random_residue(array, n);
-    //printf("2array[1]: %llu\n", array[1]);
+
     uint64_t res_try;
-    int first = -1;
 
 
     for (int i = 1; i < iterations; i++){
         res_try = random_residue(array, n);
+        printf("Residue TRYYYY: %llu\n", res_try);
+        printf("Residue Keep: %llu\n", res_keep);
         if (res_try < res_keep){
             res_keep = res_try;
         }
+
     }
-    printf("res_keep %llu\n", res_keep);
-    printf("res_try %llu\n", res_try);
+
+
     return res_keep;
 }
 
@@ -396,9 +408,11 @@ uint64_t rand_partition(uint64_t array[], int n, int max_iter){
             rand_array2[i] = rand() % n;
         }
         x = partition(array, rand_array, n);
+
         //printf("x: %" PRIu64 "\n", x); 
         y = partition(array, rand_array2, n);
         //printf("y: %" PRIu64 "\n", y); 
+
         if (y < x){
             memcpy(rand_array, rand_array2, sizeof(rand_array));
             residue = y;
@@ -406,7 +420,7 @@ uint64_t rand_partition(uint64_t array[], int n, int max_iter){
         else {
             residue = x;
         }
-        //printf("residue: %" PRIu64 "\n", residue); 
+
     }
     return residue;
 }
@@ -510,22 +524,31 @@ int main(){//int argc, char *argv[]){
     uint64_t num;
     read_file(array, fp, n);
 
-/*
-    uint64_t k = karmakar_karp(array, n);
-    printf("Karmakar Check: %llu\n", k);
 
-    uint64_t check = repeated_random(array, n, 25000);
-    printf("Repeated Random Check: %llu\n", check);
+//     uint64_t k = karmakar_karp(array, n);
+//     printf("Karmakar Check: %llu\n", k);
 
-    uint64_t hcr = hillclimbing_random(array, n, 25000);
-    printf("Hillclimbing Random Check: %llu\n", hcr);
+//     uint64_t check = repeated_random(array, n, 25000);
+//     printf("Repeated Random Check: %llu\n", check);
 
-    uint64_t kk_rand = rand_partition(array, n, 25000);
-    printf("Repeated Rand KK: %llu\n", kk_rand);*/
+//     uint64_t hcr = hillclimbing_random(array, n, 25000);
+//     printf("Hillclimbing Random Check: %llu\n", hcr);
 
-    // uint64_t random_test = random_residue(array, n);
+//     uint64_t kk_rand = rand_partition(array, n, 25000);
+//     printf("Repeated Rand KK: %llu\n", kk_rand);
 
 
+
+// <<<<<<< HEAD
+//     // //uint64_t random_test = random_residue(array, n);
+//     // //uint64_t data_array[5] = {3,4,5,5,1};
+//     // uint64_t k = rand_partition(array, n, 25000);
+//     // //uint64_t k = hill_climbing(array, n, 25000);
+//     // //uint64_t k = karmakar_karp(array, n);
+//     // printf("Hi: %llu\n", k);
+
+
+// =======
     //uint64_t random_test = random_residue(array, n);
     //uint64_t data_array[5] = {3,4,5,5,1};
     clock_t t = clock();
@@ -572,6 +595,7 @@ int main(){//int argc, char *argv[]){
     time = (float)t/CLOCKS_PER_SEC;
     printf("%f seconds \n", time);
     printf("random sim_annealing: %" PRIu64 "\n", g);         
+
     return 0;
 
 
