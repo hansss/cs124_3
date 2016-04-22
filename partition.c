@@ -516,10 +516,6 @@ uint64_t sim_a(uint64_t array[], int n, int max_iter){
 
 
 int main(){//int argc, char *argv[]){
-    time_t t;
-    srand((unsigned) time(&t));
-
-    // int n = 5;
     
     FILE *fp = fopen("numbers.txt", "r");
 
@@ -541,8 +537,7 @@ int main(){//int argc, char *argv[]){
 //     uint64_t kk_rand = rand_partition(array, n, 25000);
 //     printf("Repeated Rand KK: %llu\n", kk_rand);
 
-//     // uint64_t random_test = random_residue(array, n);
-    
+
 
 // <<<<<<< HEAD
 //     // //uint64_t random_test = random_residue(array, n);
@@ -556,20 +551,49 @@ int main(){//int argc, char *argv[]){
 // =======
     //uint64_t random_test = random_residue(array, n);
     //uint64_t data_array[5] = {3,4,5,5,1};
+    clock_t t = clock();
     uint64_t a = rand_partition(array, n, 25000);
+    t = clock() - t; 
+    // Time that elapsed to calculate the fibonacci nth number
+    float time = (float)t/CLOCKS_PER_SEC;
+    printf("%f seconds \n", time);
+    printf("rand_partition: %" PRIu64 "\n", a); 
     //uint64_t k = check(array, n, 25000);
     uint64_t b = karmakar_karp(array, n);
-    uint64_t c = sim_a(array, n, 25000);
-    uint64_t d = c_rr(array, n, 25000);
-    uint64_t e = c_hill(array, n, 25000);
-    uint64_t f = hill_climbing(array, n, 25000);
-    uint64_t g = rand_sim_a(array, n, 25000);
+    t = clock() - t; 
+    // Time that elapsed to calculate the fibonacci nth number
+    time = (float)t/CLOCKS_PER_SEC;
+    printf("%f seconds \n", time);
     printf("karmarker-k: %" PRIu64 "\n", b); 
-    printf("rand_partition: %" PRIu64 "\n", a); 
-    printf("partition-hill: %" PRIu64 "\n", f); 
+    uint64_t c = sim_a(array, n, 25000);
+    t = clock() - t; 
+    // Time that elapsed to calculate the fibonacci nth number
+    time = (float)t/CLOCKS_PER_SEC;
+    printf("%f seconds \n", time);
     printf("sim_annealing partition: %" PRIu64 "\n", c); 
+    uint64_t d = c_rr(array, n, 25000);
+    t = clock() - t; 
+    // Time that elapsed to calculate the fibonacci nth number
+    time = (float)t/CLOCKS_PER_SEC;
     printf("random normal: %" PRIu64 "\n", d);   
+    printf("%f seconds \n", time);
+    uint64_t e = c_hill(array, n, 25000);
+     t = clock() - t; 
+    // Time that elapsed to calculate the fibonacci nth number
+    time = (float)t/CLOCKS_PER_SEC;
+    printf("%f seconds \n", time);
     printf("random hill: %" PRIu64 "\n", e); 
+    uint64_t f = hill_climbing(array, n, 25000);
+    t = clock() - t; 
+    // Time that elapsed to calculate the fibonacci nth number
+    time = (float)t/CLOCKS_PER_SEC;
+    printf("%f seconds \n", time);
+    printf("partition-hill: %" PRIu64 "\n", f); 
+    uint64_t g = rand_sim_a(array, n, 25000);
+    t = clock() - t; 
+    // Time that elapsed to calculate the fibonacci nth number
+    time = (float)t/CLOCKS_PER_SEC;
+    printf("%f seconds \n", time);
     printf("random sim_annealing: %" PRIu64 "\n", g);         
 
     return 0;
