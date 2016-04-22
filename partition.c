@@ -48,6 +48,7 @@ uint64_t random_residue(uint64_t array[], int n){
     return residue;
 }
 
+
 uint64_t repeated_random(uint64_t array[], int n,  int iterations){
     printf("1array[1]: %llu\n", array[1]);
     uint64_t res_keep = random_residue(array, n);
@@ -62,7 +63,14 @@ uint64_t repeated_random(uint64_t array[], int n,  int iterations){
             res_keep = res_try;
         }
     }
+    printf("res_keep %llu\n", res_keep);
+    printf("res_try %llu\n", res_try);
     return res_keep;
+}
+
+
+uint64_t hillclimbing_repeated(){
+
 }
 
 
@@ -166,7 +174,32 @@ uint64_t rand_partition(uint64_t array[], int n, int max_iter){
 int main(){//int argc, char *argv[]){
     time_t t;
     srand((unsigned) time(&t));
+    // int n = 5;
+    
+    FILE *fp = fopen("numbers.txt", "r");
+
     int n = 5;
+    uint64_t array[n];
+    uint64_t num;
+    read_file(array, fp, n);
+
+
+    uint64_t k = karmakar_karp(array, n);
+    printf("Karmakar Check: %llu\n", k);
+
+    uint64_t check = repeated_random(array, n, 50000);
+    printf("Repeated Random Check: %llu\n", check);
+
+    // uint64_t random_test = random_residue(array, n);
+    
+
+
+
+    return 0;
+
+
+
+
     /*
     FILE *fp = fopen("numbers.txt", "r");
 
@@ -200,8 +233,8 @@ int main(){//int argc, char *argv[]){
     //uint64_t k = karmakar_karp(data_array, n);
     uint64_t k = rand_partition(data_array, n, 25000);*/
 
-    uint64_t check = repeated_random(array, n, 2500);
-    printf("CHECK %llu\n", check);
+    // uint64_t check = repeated_random(array, n, 2500);
+    // printf("CHECK %llu\n", check);
 
     // uint64_t random_test = random_residue(array, n);
     
