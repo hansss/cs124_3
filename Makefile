@@ -2,7 +2,7 @@
 O ?= 0
 
 all: partition.c
-	gcc -g -std=c99 -Wall -o partition partition.c
+	gcc -g -std=c99 -Wall -o partition partition.c -lm
 
 clean: 
 	$(RM) ms
