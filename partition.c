@@ -519,6 +519,7 @@ int main(){//int argc, char *argv[]){
     
     FILE *fp = fopen("numbers26.txt", "r");
 
+
     int n = 100;
     uint64_t array[n];
     uint64_t num;
